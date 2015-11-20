@@ -1,14 +1,36 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 sourceCompatibility = 1.7
 version = '1.0'
+
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Expenses project', 'Implementation-Version': 1.0
+        attributes 'Implementation-Title': 'Expenses project', 'Implementation-Version': 1.0,  'Main-Class': 'com.toptal.expenses.HelloWorldApplication'
     }
 }
 
+buildscript {
+  repositories { jcenter() }
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+  }
+}
+
+
+//create a single Jar with all dependencies
+/*task fatJar(type: Jar) {
+	manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',  
+        	'Implementation-Version': version,
+        	'Main-Class': 'com.toptal.expenses.HelloWorldApplication'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+*/
 repositories {
     mavenCentral()
 }
