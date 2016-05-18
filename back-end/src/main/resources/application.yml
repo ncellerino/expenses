@@ -1,0 +1,22 @@
+server:
+    port: 9000
+---
+
+spring:
+ profiles: unit-test
+ server:
+  port: 9000
+ data:
+  mongodb:
+   host: localhost
+   port: 29019
+   database: test
+
+---
+
+spring:
+ profiles: production
+ server:
+  port: 8080
+ data:
+  mongodb.uri: mongodb://expenses_admin:admin@localhost:27017/expenses

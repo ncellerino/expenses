@@ -1,0 +1,27 @@
+{
+	"date": "04242016",
+	"userId": "1",
+	"spendingGoal": {
+		"loanPrincipal": "300",
+		"newEquipment": "200",
+		"profit": "45",
+		"variableCosts": {
+			"commissions": "10",
+			"goodsSold": "20",
+			"labor": "5",
+			"materials": "30",
+			"otherCosts": "15"
+		},
+		"fixedCosts": {
+			"contingency": "1200",
+			"depreciation": "399",
+			"incomeTaxes": "848",
+			"otherCosts": "15",
+			"ownerSalary": "844",
+			"retirement": "758"
+		}
+	},
+	"requiredSalesGoal" : {
+		"salesDaysPerWeek" : "7"
+	}
+}

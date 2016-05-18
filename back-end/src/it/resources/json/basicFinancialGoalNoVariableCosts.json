@@ -1,0 +1,20 @@
+{
+	"date": "04242016",
+	"userId": "1",
+	"spendingGoal": {
+		"loanPrincipal": "30",
+		"newEquipment": "20",
+		"profit": "45",
+		"fixedCosts": {
+			"contingency": "120",
+			"depreciation": "399",
+			"incomeTaxes": "848",
+			"otherCosts": "15",
+			"ownerSalary": "844",
+			"retirement": "758"
+		}
+	},
+	"requiredSalesGoal" : {
+		"salesDaysPerWeek" : "5"
+	}
+}
