@@ -1,6 +1,7 @@
-package com.smartbusiness.service;
+package com.expenses.service;
 
-import com.smartbusiness.dto.UserDTO;
+import com.expenses.dto.UserDTO;
+import com.expenses.dto.UserToSaveDTO;
 
 public interface UserService {
 
@@ -26,7 +27,15 @@ public interface UserService {
 	 * @param userDTO
 	 * @return the user dto created.
 	 */
-	public UserDTO saveUser(UserDTO userDTO);
+	public UserDTO saveUser(UserToSaveDTO userDTO);
+	
+	/**
+	 * Update an existent user in the system.
+	 * 
+	 * @param userDTO
+	 * @return the user dto updated.
+	 */
+	public UserDTO updateUser(UserDTO userDTO);
 
 	/**
 	 * Delete a existent user in the system.

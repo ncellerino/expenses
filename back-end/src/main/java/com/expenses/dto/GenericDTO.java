@@ -1,4 +1,4 @@
-package com.smartbusiness.dto;
+package com.expenses.dto;
 
 /**
  * Interface to be implemented by all the dtos.

@@ -1,4 +1,4 @@
-package com.smartbusiness.controller;
+package com.expenses.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smartbusiness.dto.UserDTO;
-import com.smartbusiness.service.UserService;
+import com.expenses.dto.UserDTO;
+import com.expenses.dto.UserToSaveDTO;
+import com.expenses.service.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -34,7 +35,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public UserDTO saveBasicGoal(@RequestBody UserDTO userDTO, HttpServletResponse response) {
+	public UserDTO saveUser(@RequestBody UserToSaveDTO userDTO, HttpServletResponse response) {
 		UserDTO result = null;
 		result = service.saveUser(userDTO);
 		response.setStatus(HttpServletResponse.SC_CREATED);
@@ -44,7 +45,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.PUT)
 	public UserDTO updateUser(@RequestBody UserDTO userDTO) {
 		UserDTO result = null;
-		result = service.saveUser(userDTO);
+		result = service.updateUser(userDTO);
 		return result;
 	}
 

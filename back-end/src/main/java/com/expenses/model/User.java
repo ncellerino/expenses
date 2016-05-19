@@ -1,4 +1,4 @@
-package com.smartbusiness.model;
+package com.expenses.model;
 
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.CompoundIndex;

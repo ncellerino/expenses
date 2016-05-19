@@ -1,4 +1,4 @@
-package com.smartbusiness.dto;
+package com.expenses.dto;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
@@ -82,7 +82,7 @@ public class UserDTO implements GenericDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj1) {
 		if (this == obj1)

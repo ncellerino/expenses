@@ -1,6 +1,6 @@
-package com.smartbusiness.exception;
+package com.expenses.exception;
 
-import com.smartbusiness.util.SmartMoneyConstants;
+import com.expenses.util.SmartMoneyConstants;
 
 /**
  * Generic errors returned by lambda service to be mapped by AWS Api Gateway.

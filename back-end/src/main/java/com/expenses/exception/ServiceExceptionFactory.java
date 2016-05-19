@@ -1,4 +1,4 @@
-package com.smartbusiness.exception;
+package com.expenses.exception;
 
 
 /**

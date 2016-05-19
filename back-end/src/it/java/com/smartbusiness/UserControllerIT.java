@@ -13,9 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import com.expenses.Application;
+import com.expenses.dto.UserDTO;
+import com.expenses.dto.UserToSaveDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -23,7 +25,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.util.JSON;
-import com.smartbusiness.dto.UserDTO;
 import com.smartbusiness.util.TestData;
 
 import de.svenkubiak.embeddedmongodb.EmbeddedMongo;
@@ -54,20 +55,20 @@ public class UserControllerIT {
 
 	@Test
 	public void saveUser() {
-		UserDTO userDTO = TestData.getUserDTO();
-		ResponseEntity<UserDTO> response = executePost(userDTO);
+		UserToSaveDTO userToSaveDTO = TestData.getUserDTO();
+		ResponseEntity<UserToSaveDTO> response = executePost(userToSaveDTO);
 		Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-		Assert.assertEquals(userDTO, response.getBody());
+		Assert.assertEquals(userToSaveDTO, response.getBody());
 	}
 
 	@Test
 	public void saveDuplicateUser() {
-		UserDTO userDTO = TestData.getUserDTO();
-		ResponseEntity<UserDTO> okResponse = executePost(userDTO);
+		UserToSaveDTO userDTO = TestData.getUserDTO();
+		ResponseEntity<UserToSaveDTO> okResponse = executePost(userDTO);
 		Assert.assertEquals(HttpStatus.CREATED, okResponse.getStatusCode());
 
 		// save the basic goal again --> should return an error
-		ResponseEntity<UserDTO> conflictResponse = executePost(userDTO);
+		ResponseEntity<UserToSaveDTO> conflictResponse = executePost(userDTO);
 		Assert.assertEquals(HttpStatus.CONFLICT, conflictResponse.getStatusCode());
 	}
 
@@ -121,7 +122,7 @@ public class UserControllerIT {
 		user.setAddress("any other address");
 		user.setPhone("63636362");
 		user.setLastName("Marker");
-		//use the mail of the existent user
+		// use the mail of the existent user
 		user.setMail("clark.kent@dc.com");
 
 		ResponseEntity<UserDTO> putResponse = executePut(user);
@@ -129,14 +130,8 @@ public class UserControllerIT {
 		Assert.assertEquals(user, putResponse.getBody());
 	}
 
-	private ResponseEntity<UserDTO> executePost(UserDTO userDTO) {
-		ResponseEntity<UserDTO> response = null;
-		try {
-			response = template.postForEntity(URL, userDTO, UserDTO.class);
-		} catch (HttpStatusCodeException e) {
-			e.printStackTrace();
-		}
-		return response;
+	private ResponseEntity<UserToSaveDTO> executePost(UserToSaveDTO userDTO) {
+		return template.postForEntity(URL, userDTO, UserToSaveDTO.class);
 	}
 
 	private ResponseEntity<UserDTO> executeGet(String userId) {

@@ -1,4 +1,4 @@
-package com.smartbusiness.exception;
+package com.expenses.exception;
 
 /**
  * Useful class to have a unique way of sending back error messages.

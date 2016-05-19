@@ -1,8 +1,8 @@
-package com.smartbusiness.repository;
+package com.expenses.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.smartbusiness.model.User;
+import com.expenses.model.User;
 
 public interface UserRepository extends CrudRepository<User, String> {
 	

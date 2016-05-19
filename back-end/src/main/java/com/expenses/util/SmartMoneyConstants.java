@@ -1,4 +1,4 @@
-package com.smartbusiness.util;
+package com.expenses.util;
 
 public interface SmartMoneyConstants {
 
