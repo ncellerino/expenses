@@ -12,9 +12,9 @@ public class TestData {
 		return new UserDTO(null, "Bruce", "Wayne", "bruce.wayne@dc.com", 32, "13234534", "123 fake street, gotham");
 	}
 
-	public static String getUserJson() throws JsonProcessingException {
-		User user = new User.UserBuilder(null, "clark.kent@dc.com", "Clark", "Kent", null, null).age(35).phone("12395995")
-				.address("543 fake street, Smallville").build();
+	public static String getUserJson(String mail, String firstName, String lastName, int age, String phone, String address) throws JsonProcessingException {
+		User user = new User.UserBuilder(null, mail, firstName, lastName, null, null).age(age).phone(phone)
+				.address(address).build();
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String json = ow.writeValueAsString(user);
 		return json;

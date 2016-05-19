@@ -3,6 +3,7 @@ package com.smartbusiness;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -37,6 +38,13 @@ public class UserControllerIT {
 
 	RestTemplate template = new TestRestTemplate();
 
+	@Before
+	public void setUp() {
+		DB db = getDBClient();
+		DBCollection myCollection = db.getCollection("user");
+		myCollection.createIndex(new BasicDBObject("mail", 1), new BasicDBObject("unique", true));
+	}
+
 	@After
 	public void tearDown() {
 		DB db = getDBClient();
@@ -48,7 +56,7 @@ public class UserControllerIT {
 	public void saveUser() {
 		UserDTO userDTO = TestData.getUserDTO();
 		ResponseEntity<UserDTO> response = executePost(userDTO);
-		Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
+		Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
 		Assert.assertEquals(userDTO, response.getBody());
 	}
 
@@ -56,7 +64,7 @@ public class UserControllerIT {
 	public void saveDuplicateUser() {
 		UserDTO userDTO = TestData.getUserDTO();
 		ResponseEntity<UserDTO> okResponse = executePost(userDTO);
-		Assert.assertEquals(HttpStatus.OK, okResponse.getStatusCode());
+		Assert.assertEquals(HttpStatus.CREATED, okResponse.getStatusCode());
 
 		// save the basic goal again --> should return an error
 		ResponseEntity<UserDTO> conflictResponse = executePost(userDTO);
@@ -65,10 +73,60 @@ public class UserControllerIT {
 
 	@Test
 	public void getUser() throws JsonProcessingException {
-		String id = insertUser();
+		String id = insertDefaultUser();
 
 		ResponseEntity<UserDTO> okResponse = executeGet(id);
 		Assert.assertEquals(HttpStatus.OK, okResponse.getStatusCode());
+	}
+
+	@Test
+	public void deleteUser() throws JsonProcessingException {
+		String id = insertDefaultUser();
+		ResponseEntity<UserDTO> okResponse = executeGet(id);
+		Assert.assertEquals(HttpStatus.OK, okResponse.getStatusCode());
+
+		executeDelete(id);
+		ResponseEntity<UserDTO> notFoundResponse = executeGet(id);
+		Assert.assertEquals(HttpStatus.NOT_FOUND, notFoundResponse.getStatusCode());
+	}
+
+	@Test
+	public void updateUser() throws JsonProcessingException {
+		String id = insertDefaultUser();
+		ResponseEntity<UserDTO> okResponse = executeGet(id);
+
+		UserDTO user = okResponse.getBody();
+		user.setAge(45);
+		user.setFirstName("Mark");
+		user.setAddress("any other address");
+		user.setPhone("63636362");
+		user.setLastName("Marker");
+		user.setMail("newmail@mail.com");
+
+		ResponseEntity<UserDTO> putResponse = executePut(user);
+		Assert.assertEquals(HttpStatus.OK, putResponse.getStatusCode());
+		Assert.assertEquals(user, putResponse.getBody());
+	}
+
+	@Test
+	public void updateUserSameMail() throws JsonProcessingException {
+		insertDefaultUser();
+
+		String id = insertUser("anymail@mail.com", "Homer", "Simpson", 45, "1232134", "123 fake st, Springfield");
+		ResponseEntity<UserDTO> okResponse = executeGet(id);
+
+		UserDTO user = okResponse.getBody();
+		user.setAge(45);
+		user.setFirstName("Mark");
+		user.setAddress("any other address");
+		user.setPhone("63636362");
+		user.setLastName("Marker");
+		//use the mail of the existent user
+		user.setMail("clark.kent@dc.com");
+
+		ResponseEntity<UserDTO> putResponse = executePut(user);
+		Assert.assertEquals(HttpStatus.CONFLICT, putResponse.getStatusCode());
+		Assert.assertEquals(user, putResponse.getBody());
 	}
 
 	private ResponseEntity<UserDTO> executePost(UserDTO userDTO) {
@@ -85,18 +143,28 @@ public class UserControllerIT {
 		return template.getForEntity(URL + "/" + userId, UserDTO.class);
 	}
 
-	private void executePut(UserDTO userDTO) {
-		template.put(URL, userDTO);
+	private void executeDelete(String userId) {
+		template.delete(URL + "/" + userId, UserDTO.class);
 	}
 
-	private DB getDBClient() {
+	private ResponseEntity<UserDTO> executePut(UserDTO userDTO) {
+		template.put(URL, userDTO);
+		return executeGet(userDTO.getId());
+	}
+
+	private static DB getDBClient() {
 		MongoClient mongoClient = EmbeddedMongo.DB.port(29019).getMongoClient();
 		DB db = mongoClient.getDB("test");
 		return db;
 	}
 
-	private String insertUser() throws JsonProcessingException {
-		String jsonUser = TestData.getUserJson();
+	private String insertDefaultUser() throws JsonProcessingException {
+		String jsonUser = getDefaultUser();
+		// convert JSON to DBObject directly
+		return insertJsonUser(jsonUser);
+	}
+
+	private String insertJsonUser(String jsonUser) {
 		// convert JSON to DBObject directly
 		DBObject dbObject = (DBObject) JSON.parse(jsonUser);
 
@@ -105,90 +173,14 @@ public class UserControllerIT {
 		return id.toString();
 	}
 
-	// @Test
-	// public void saveEmtpyBasicFinancialGoalBuilder() {
-	// BasicFinancialGoalDTO expectedGoal = new
-	// JsonFileReader().getBasicFinancialGoal(
-	// "/json/basicFinancialGoalEmpty.json",
-	// SmartMoneyConstants.SAVE_BASIC_FINANCIAL_GOAL, 2);
-	// ResponseEntity<BasicFinancialGoalDTO> response =
-	// executePost(expectedGoal);
-	// Assert.assertEquals(expectedGoal, response.getBody());
-	// }
-	//
-	// @Test(expected = ServiceException.class)
-	// public void saveBasicFinancialGoalBuilderSameDateAndUser() {
-	// BasicFinancialGoalDTO expectedGoal = new
-	// JsonFileReader().getBasicFinancialGoal("/json/basicFinancialGoal.json",
-	// SmartMoneyConstants.SAVE_BASIC_FINANCIAL_GOAL, 3L);
-	// executePost(expectedGoal);
-	//
-	// // save the basic goal again --> should return an error
-	// executePost(expectedGoal);
-	// }
-	//
-	// @Test
-	// public void saveBasicFinancialGoalBuilderNoRequiredFields() {
-	// BasicFinancialGoalDTO expectedGoal = new
-	// JsonFileReader().getBasicFinancialGoal(
-	// "/json/basicFinancialGoalNoDate.json",
-	// SmartMoneyConstants.SAVE_BASIC_FINANCIAL_GOAL, 4);
-	// ResponseEntity<BasicFinancialGoalDTO> response =
-	// executePost(expectedGoal);
-	// Assert.assertNotNull(response);
-	// Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-	// }
-	//
-	// @Test
-	// public void saveBasicFinancialGoalBuilderDateWrongFormat() {
-	// BasicFinancialGoalDTO expectedGoal = new
-	// JsonFileReader().getBasicFinancialGoal(
-	// "/json/basicFinancialGoalDateWrongFormat.json",
-	// SmartMoneyConstants.SAVE_BASIC_FINANCIAL_GOAL, 5);
-	// ResponseEntity<BasicFinancialGoalDTO> response =
-	// executePost(expectedGoal);
-	// Assert.assertNotNull(response);
-	// Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-	// }
-	//
-	// @Test
-	// public void saveBasicFinancialGoalBuilderNoVariableCosts() {
-	// BasicFinancialGoalDTO expectedGoal = new
-	// JsonFileReader().getBasicFinancialGoal(
-	// "/json/basicFinancialGoalNoVariableCosts.json",
-	// SmartMoneyConstants.SAVE_BASIC_FINANCIAL_GOAL, 6);
-	// ResponseEntity<BasicFinancialGoalDTO> response =
-	// executePost(expectedGoal);
-	// Assert.assertNotNull(response);
-	// Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-	// }
-	//
+	private String insertUser(String mail, String firstName, String lastName, int age, String phone, String address)
+			throws JsonProcessingException {
+		String jsonUser = TestData.getUserJson(mail, firstName, lastName, age, phone, address);
+		return insertJsonUser(jsonUser);
+	}
 
-	//
-	// @Test
-	// public void updateBasicFinancialGoalBuilder() {
-	// long userId = 8;
-	// BasicFinancialGoalDTO goal = new
-	// JsonFileReader().getBasicFinancialGoal("/json/basicFinancialGoal.json",
-	// SmartMoneyConstants.SAVE_BASIC_FINANCIAL_GOAL, userId);
-	// ResponseEntity<BasicFinancialGoalDTO> response = executePost(goal);
-	// Assert.assertNotNull(response);
-	// Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-	// goal = response.getBody();
-	//
-	// BasicFinancialGoalDTO updatedExpectedGoal = new
-	// JsonFileReader().getBasicFinancialGoal(
-	// "/json/updatedBasicFinancialGoal.json",
-	// SmartMoneyConstants.UPDATE_BASIC_FINANCIAL_GOAL, userId);
-	// updatedExpectedGoal.setId(goal.getId());
-	// executePut(updatedExpectedGoal);
-	//
-	// ResponseEntity<BasicFinancialGoalDTO> responseGet = executeGet(userId);
-	// Assert.assertNotNull(responseGet);
-	// Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-	// BasicFinancialGoalDTO actualUpdatedGoal = responseGet.getBody();
-	//
-	// Assert.assertEquals(updatedExpectedGoal, actualUpdatedGoal);
-	// }
-
+	private String getDefaultUser() throws JsonProcessingException {
+		return TestData.getUserJson("clark.kent@dc.com", "Clark", "Kent", 35, "12395995",
+				"543 fake street, Smallville");
+	}
 }

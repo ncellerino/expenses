@@ -40,8 +40,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getUser(String id) {
+		UserDTO userDTO = null;
 		User user = repository.findOne(id);
-		return toDto(user);
+		if(user != null){
+			userDTO = toDto(user);
+		}
+		return userDTO;
 	}	
 
 	@Override
