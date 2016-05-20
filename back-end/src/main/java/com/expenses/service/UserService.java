@@ -1,5 +1,6 @@
 package com.expenses.service;
 
+import com.expenses.dto.LoggedUserDTO;
 import com.expenses.dto.UserDTO;
 import com.expenses.dto.UserToSaveDTO;
 
@@ -12,6 +13,16 @@ public interface UserService {
 	 * @return the user dto.
 	 */
 	public UserDTO getUser(String id);
+
+	/**
+	 * Get an existent user by its username and password.
+	 * 
+	 * @param username
+	 * @param password
+	 * 
+	 * @return the user dto.
+	 */
+	public LoggedUserDTO getUserByUsernameAndPassword(String username, String password);
 
 	/**
 	 * Get a existent user by mail.
@@ -28,7 +39,7 @@ public interface UserService {
 	 * @return the user dto created.
 	 */
 	public UserDTO saveUser(UserToSaveDTO userDTO);
-	
+
 	/**
 	 * Update an existent user in the system.
 	 * 

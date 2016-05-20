@@ -2,12 +2,14 @@ package com.expenses.dto;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-public class UserDTO implements GenericDTO {
+public class UserDTO {
 
 	private String id;
 	private String firstName;
 	private String lastName;
 	private String mail;
+	private String username;
+	private String role;
 	private int age;
 	private String phone;
 	private String address;
@@ -16,12 +18,14 @@ public class UserDTO implements GenericDTO {
 
 	};
 
-	public UserDTO(String id, String firstName, String lastName, String mail, int age, String phone, String address) {
-		super();
+	public UserDTO(String id, String firstName, String lastName, String mail, String username, String role, int age,
+			String phone, String address) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mail = mail;
+		this.username = username;
+		this.role = role;
 		this.age = age;
 		this.phone = phone;
 		this.address = address;
@@ -81,6 +85,22 @@ public class UserDTO implements GenericDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
@@ -96,6 +116,8 @@ public class UserDTO implements GenericDTO {
 		builder.append(this.getLastName(), fc1.getLastName());
 		builder.append(this.getAddress(), fc1.getAddress());
 		builder.append(this.getMail(), fc1.getMail());
+		builder.append(this.getUsername(), fc1.getUsername());
+		builder.append(this.getRole(), fc1.getRole());
 		builder.append(this.getPhone(), fc1.getPhone());
 		builder.append(this.getAge(), fc1.getAge());
 

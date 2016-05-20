@@ -7,9 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
 @CompoundIndexes(value = { @CompoundIndex(name = "user_mail_idx", def = "{'mail':1}", unique = true) })
-public class User {
+public class User extends BaseUser {
 
-	private final String id;
 	private final String firstName;
 	private final String lastName;
 	private final String mail;
@@ -18,11 +17,11 @@ public class User {
 	private final int age;
 	private final String phone;
 	private final String address;
-	
+
 	@PersistenceConstructor
-	protected User(String id, String mail, String firstName, String lastName, byte[] passwordHash,
-			byte[] passwordSalt, String phone, String address, int age) {
-		this.id = id;
+	protected User(String id, String mail, String username, String role, String firstName, String lastName,
+			byte[] passwordHash, byte[] passwordSalt, String phone, String address, int age) {
+		super(id, username, role);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mail = mail;
@@ -34,7 +33,7 @@ public class User {
 	}
 
 	private User(UserBuilder userBuilder) {
-		id = userBuilder.id;
+		super(userBuilder.id, userBuilder.username, userBuilder.role);
 		firstName = userBuilder.firstName;
 		lastName = userBuilder.lastName;
 		mail = userBuilder.mail;
@@ -50,18 +49,22 @@ public class User {
 		private final String firstName;
 		private final String lastName;
 		private final String mail;
+		private final String username;
+		private final String role;
 		private final byte[] passwordHash;
 		private final byte[] passwordSalt;
 		private int age;
 		private String phone;
 		private String address;
 
-		public UserBuilder(String id, String mail, String firstName, String lastName, byte[] passwordHash,
-				byte[] passwordSalt) {
+		public UserBuilder(String id, String mail, String username, String role, String firstName, String lastName,
+				byte[] passwordHash, byte[] passwordSalt) {
 			this.id = id;
 			this.firstName = firstName;
 			this.lastName = lastName;
 			this.mail = mail;
+			this.username = username;
+			this.role = role;
 			this.passwordHash = passwordHash;
 			this.passwordSalt = passwordSalt;
 		}
@@ -101,10 +104,6 @@ public class User {
 
 	public String getLastName() {
 		return lastName;
-	}
-
-	public String getId() {
-		return id;
 	}
 
 	public String getPhone() {
