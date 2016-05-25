@@ -1,10 +1,12 @@
 package com.expenses.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import com.expenses.dto.LoggedUserDTO;
 import com.expenses.dto.UserDTO;
 import com.expenses.dto.UserToSaveDTO;
 
-public interface UserService {
+public interface UserService extends UserDetailsService{
 
 	/**
 	 * Get a existent user by its id.
@@ -38,7 +40,7 @@ public interface UserService {
 	 * @param userDTO
 	 * @return the user dto created.
 	 */
-	public UserDTO saveUser(UserToSaveDTO userDTO);
+	public LoggedUserDTO saveUser(UserToSaveDTO userDTO);
 
 	/**
 	 * Update an existent user in the system.

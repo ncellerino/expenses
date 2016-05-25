@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -31,6 +31,13 @@ public class GlobalExceptionHandler {
 	public void handleDuplicateKeyException(DuplicateKeyException dke, HttpServletRequest request,
 			HttpServletResponse resp) throws IOException {
 		resp.sendError(HttpStatus.CONFLICT.value(), dke.getMessage());
+	}
+
+	@ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
+	@ResponseBody
+	public void handleAuthenticationException(AuthenticationCredentialsNotFoundException cnfe,
+			HttpServletRequest request, HttpServletResponse resp) throws IOException {
+		resp.sendError(HttpStatus.UNAUTHORIZED.value(), cnfe.getMessage());
 	}
 
 }

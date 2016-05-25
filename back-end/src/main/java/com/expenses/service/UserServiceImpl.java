@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.expenses.dto.LoggedUserDTO;
@@ -13,13 +15,11 @@ import com.expenses.exception.ErrorResponseEnum;
 import com.expenses.exception.ServiceExceptionFactory;
 import com.expenses.model.User;
 import com.expenses.repository.UserRepository;
-import com.expenses.security.JwtUtil;
+import com.expenses.security.JwtTokenHandler;
 import com.expenses.security.PasswordEncoder;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
-
-	private long tokenDuration;
 
 	@Autowired
 	private final UserRepository repository;
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private JwtUtil jwtUtil;
+	private JwtTokenHandler jwtTokenHandler;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository) {
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO saveUser(UserToSaveDTO userDTO) {
+	public LoggedUserDTO saveUser(UserToSaveDTO userDTO) {
 		byte[] password = null;
 		byte[] salt = null;
 
@@ -52,8 +52,9 @@ public class UserServiceImpl implements UserService {
 				userDTO.getFirstName(), userDTO.getLastName(), password, salt).age(userDTO.getAge())
 						.address(userDTO.getAddress()).phone(userDTO.getPhone()).build();
 		user = repository.save(user);
-
-		return toDTO(user);
+		// generate JWT token
+		String token = jwtTokenHandler.generateToken(user);
+		return toLoggedUserDTO(user, token);
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class UserServiceImpl implements UserService {
 			}
 			if (userValidated) {
 				// generate JWT token
-				String token = jwtUtil.generateToken(user, tokenDuration);
+				String token = jwtTokenHandler.generateToken(user);
 				loggedUserDTO = toLoggedUserDTO(user, token);
 			}
 		}
@@ -113,16 +114,12 @@ public class UserServiceImpl implements UserService {
 		return userDTO;
 	}
 
-	public void setJwtUtil(JwtUtil jwtUtil) {
-		this.jwtUtil = jwtUtil;
-	}
-
 	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public void setTokenDuration(long tokenDuration) {
-		this.tokenDuration = tokenDuration;
+	public void setJwtTokenHandler(JwtTokenHandler jwtTokenHandler) {
+		this.jwtTokenHandler = jwtTokenHandler;
 	}
 
 	@Override
@@ -137,6 +134,12 @@ public class UserServiceImpl implements UserService {
 
 	private LoggedUserDTO toLoggedUserDTO(User user, String token) {
 		return new LoggedUserDTO(user.getUsername(), token, user.getRole());
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

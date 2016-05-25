@@ -9,6 +9,9 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
@@ -17,14 +20,12 @@ import org.springframework.web.client.RestTemplate;
 
 import com.expenses.Application;
 import com.expenses.dto.UserDTO;
-import com.expenses.dto.UserToSaveDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.util.JSON;
+import com.smartbusiness.util.DBUtils;
 import com.smartbusiness.util.TestData;
 
 import de.svenkubiak.embeddedmongodb.EmbeddedMongo;
@@ -35,41 +36,18 @@ import de.svenkubiak.embeddedmongodb.EmbeddedMongo;
 @WebIntegrationTest({ "server.port=9000", "management.port=9001" })
 public class UserControllerIT {
 
-	private static String URL = "http://localhost:9000/users";
+	private static String URL = "http://localhost:9000/api/users";
 
 	RestTemplate template = new TestRestTemplate();
 
 	@Before
 	public void setUp() {
-		DB db = getDBClient();
-		DBCollection myCollection = db.getCollection("user");
-		myCollection.createIndex(new BasicDBObject("mail", 1), new BasicDBObject("unique", true));
+		DBUtils.addUserMailConstraint();
 	}
 
 	@After
 	public void tearDown() {
-		DB db = getDBClient();
-		DBCollection myCollection = db.getCollection("user");
-		myCollection.remove(new BasicDBObject());
-	}
-
-	@Test
-	public void saveUser() {
-		UserToSaveDTO userToSaveDTO = TestData.getUserDTO();
-		ResponseEntity<UserToSaveDTO> response = executePost(userToSaveDTO);
-		Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-		Assert.assertEquals(userToSaveDTO, response.getBody());
-	}
-
-	@Test
-	public void saveDuplicateUser() {
-		UserToSaveDTO userDTO = TestData.getUserDTO();
-		ResponseEntity<UserToSaveDTO> okResponse = executePost(userDTO);
-		Assert.assertEquals(HttpStatus.CREATED, okResponse.getStatusCode());
-
-		// save the basic goal again --> should return an error
-		ResponseEntity<UserToSaveDTO> conflictResponse = executePost(userDTO);
-		Assert.assertEquals(HttpStatus.CONFLICT, conflictResponse.getStatusCode());
+		DBUtils.cleanUserCollection();
 	}
 
 	@Test
@@ -104,7 +82,7 @@ public class UserControllerIT {
 		user.setLastName("Marker");
 		user.setMail("newmail@mail.com");
 
-		ResponseEntity<UserDTO> putResponse = executePut(user);
+		ResponseEntity<UserDTO> putResponse = executePut(user, TestData.getDefaultUserToken());
 		Assert.assertEquals(HttpStatus.OK, putResponse.getStatusCode());
 		Assert.assertEquals(user, putResponse.getBody());
 	}
@@ -113,7 +91,8 @@ public class UserControllerIT {
 	public void updateUserSameMail() throws JsonProcessingException {
 		insertDefaultUser();
 
-		String id = insertUser("anymail@mail.com", "Homer", "Simpson", 45, "1232134", "123 fake st, Springfield");
+		String id = insertUser("anymail@mail.com", "pieman", "admin", "Homer", "Simpson", 45, "1232134",
+				"123 fake st, Springfield");
 		ResponseEntity<UserDTO> okResponse = executeGet(id);
 
 		UserDTO user = okResponse.getBody();
@@ -125,26 +104,30 @@ public class UserControllerIT {
 		// use the mail of the existent user
 		user.setMail("clark.kent@dc.com");
 
-		ResponseEntity<UserDTO> putResponse = executePut(user);
+		ResponseEntity<UserDTO> putResponse = executePut(user, TestData.getDefaultUserToken());
 		Assert.assertEquals(HttpStatus.CONFLICT, putResponse.getStatusCode());
 		Assert.assertEquals(user, putResponse.getBody());
 	}
 
-	private ResponseEntity<UserToSaveDTO> executePost(UserToSaveDTO userDTO) {
-		return template.postForEntity(URL, userDTO, UserToSaveDTO.class);
+	private ResponseEntity<UserDTO> executeGet(String userId) {
+		return executeGet(userId, TestData.getDefaultUserToken());
 	}
 
-	private ResponseEntity<UserDTO> executeGet(String userId) {
-		return template.getForEntity(URL + "/" + userId, UserDTO.class);
+	private ResponseEntity<UserDTO> executeGet(String userId, String token) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + token);
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		return template.exchange(URL + "/" + userId, HttpMethod.GET, entity, UserDTO.class);
 	}
 
 	private void executeDelete(String userId) {
 		template.delete(URL + "/" + userId, UserDTO.class);
 	}
 
-	private ResponseEntity<UserDTO> executePut(UserDTO userDTO) {
+	private ResponseEntity<UserDTO> executePut(UserDTO userDTO, String token) {
 		template.put(URL, userDTO);
-		return executeGet(userDTO.getId());
+		return executeGet(userDTO.getId(), token);
 	}
 
 	private static DB getDBClient() {
@@ -168,14 +151,15 @@ public class UserControllerIT {
 		return id.toString();
 	}
 
-	private String insertUser(String mail, String firstName, String lastName, int age, String phone, String address)
-			throws JsonProcessingException {
-		String jsonUser = TestData.getUserJson(mail, firstName, lastName, age, phone, address);
+	private String insertUser(String mail, String username, String role, String firstName, String lastName, int age,
+			String phone, String address) throws JsonProcessingException {
+		String jsonUser = TestData.getUserJson(mail, username, null, null, role, firstName, lastName, age, phone,
+				address);
 		return insertJsonUser(jsonUser);
 	}
 
 	private String getDefaultUser() throws JsonProcessingException {
-		return TestData.getUserJson("clark.kent@dc.com", "Clark", "Kent", 35, "12395995",
-				"543 fake street, Smallville");
+		return TestData.getUserJson("clark.kent@dc.com", "superman", null, null, "admin", "Clark", "Kent", 35,
+				"12395995", "543 fake street, Smallville");
 	}
 }

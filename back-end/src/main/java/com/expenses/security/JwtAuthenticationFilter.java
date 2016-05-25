@@ -9,60 +9,31 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.GenericFilterBean;
 
-public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class JwtAuthenticationFilter extends GenericFilterBean {
 
-    public JwtAuthenticationFilter() {
-        super("/**");
-    }
+	@Autowired
+	private JwtAuthenticationService jwtAuthenticationService;
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        String header = request.getHeader("Authorization");
-        if (header == null || !header.startsWith("Bearer ")) {
-            throw new AuthenticationCredentialsNotFoundException("No JWT token found in request headers");
-        }
+	@Override
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest httpRequest = (HttpServletRequest) req;
+		HttpServletResponse httpResponse = (HttpServletResponse) res;
+		Authentication authentication = jwtAuthenticationService.getAuthentication(httpRequest);
+		if(authentication == null){
+			httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		}
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		chain.doFilter(req, res);
+		SecurityContextHolder.getContext().setAuthentication(null);
+	}
 
-        String authToken = header.substring(7);
-
-        JwtAuthenticationToken authRequest = new JwtAuthenticationToken(authToken);
-
-        return getAuthenticationManager().authenticate(authRequest);
-    }
-    
-    @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-    		throws IOException, ServletException {
-    	HttpServletRequest request = (HttpServletRequest) req;
-    	HttpServletResponse response = (HttpServletResponse) res;
-    	if(isPreflight(request)){
-    		response.setStatus(200);
-    		return;
-    	}
-    	super.doFilter(req, res, chain);
-    }
-
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
-
-        // As this authentication is in HTTP header, after success we need to
-        // continue the request normally
-        // and return the response as if the resource was not secured at all
-        chain.doFilter(request, response);
-    }
-    
-    /**
-     * Checks if this is a X-domain pre-flight request.
-     * @param request
-     * @return
-     */
-    private boolean isPreflight(HttpServletRequest request) {    
-        return HttpMethod.OPTIONS.name().equals(request.getMethod());
-    }
+	public void setJwtAuthenticationService(JwtAuthenticationService jwtAuthenticationService) {
+		this.jwtAuthenticationService = jwtAuthenticationService;
+	}
 }

@@ -1,5 +1,10 @@
 server:
     port: 9000
+jwt:
+ sharedSecretKey: $Sh4r3dUk49kzmpo98i7h4xv21md
+ subject: expenses
+ issuer: https://expenses.com
+ tokenDuration: 12000
 ---
 
 spring:
