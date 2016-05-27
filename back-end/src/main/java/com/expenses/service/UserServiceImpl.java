@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO updateUser(UserDTO userDTO) {
-		User userToUpdate = repository.findOne(userDTO.getId());
+		User userToUpdate = repository.findByUsername(userDTO.getUsername());
 		UserDTO updatedUserDTO = null;
 		if (userToUpdate != null) {
 			User user = null;
@@ -105,9 +105,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO getUser(String id) {
+	public UserDTO getUser(String username) {
 		UserDTO userDTO = null;
-		User user = repository.findOne(id);
+		User user = repository.findByUsername(username);
 		if (user != null) {
 			userDTO = toDTO(user);
 		}

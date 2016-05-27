@@ -21,18 +21,18 @@ public class UserController {
 	@Qualifier("userService")
 	private UserService service;
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public UserDTO getUser(@PathVariable String id, HttpServletResponse response) {
-		UserDTO userDTO = service.getUser(id);
+	@RequestMapping(value = "/{username}", method = RequestMethod.GET)
+	public UserDTO getUser(@PathVariable String username, HttpServletResponse response) {
+		UserDTO userDTO = service.getUser(username);
 		if (userDTO == null) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
 		return userDTO;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deleteUser(@PathVariable String id) {
-		service.deleteUser(id);
+	@RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
+	public void deleteUser(@PathVariable String username) {
+		service.deleteUser(username);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)

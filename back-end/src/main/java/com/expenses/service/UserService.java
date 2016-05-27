@@ -9,12 +9,12 @@ import com.expenses.dto.UserToSaveDTO;
 public interface UserService extends UserDetailsService{
 
 	/**
-	 * Get a existent user by its id.
+	 * Get a existent user by its username.
 	 * 
-	 * @param id
+	 * @param username
 	 * @return the user dto.
 	 */
-	public UserDTO getUser(String id);
+	public UserDTO getUser(String username);
 
 	/**
 	 * Get an existent user by its username and password.
@@ -53,7 +53,7 @@ public interface UserService extends UserDetailsService{
 	/**
 	 * Delete a existent user in the system.
 	 * 
-	 * @param id
+	 * @param username
 	 */
-	public void deleteUser(String id);
+	public void deleteUser(String username);
 }

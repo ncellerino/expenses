@@ -27,6 +27,11 @@ public class JwtTokenHandler {
 	@Autowired
 	JwtConfigurer jwtConfigurer;
 
+	/**
+	 * The JWT signature algorithm we will be using to sign the token
+	 */
+	private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
+
 	private Log log = LogFactory.getLog(JwtTokenHandler.class);
 
 	/**
@@ -41,9 +46,12 @@ public class JwtTokenHandler {
 	 *         is invalid.
 	 */
 	public BaseUser parseToken(String token) {
+		// We will sign our JWT with our ApiKey secret
+		Key signingKey = new SecretKeySpec(jwtConfigurer.getSharedSecretKey().getBytes(),
+				signatureAlgorithm.getJcaName());
+
 		try {
-			Claims body = Jwts.parser().setSigningKey(jwtConfigurer.getSharedSecretKey()).parseClaimsJws(token)
-					.getBody();
+			Claims body = Jwts.parser().setSigningKey(signingKey).parseClaimsJws(token).getBody();
 			Date now = new Date();
 			long expirationMillis = (long) body.get("exp");
 			Date expiration = new Date(expirationMillis);
@@ -76,9 +84,6 @@ public class JwtTokenHandler {
 		String issuer = jwtConfigurer.getIssuer();
 		long tokenDuration = jwtConfigurer.getTokenDuration();
 
-		// The JWT signature algorithm we will be using to sign the token
-		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-
 		long nowMillis = System.currentTimeMillis();
 		Date now = new Date(nowMillis);
 
@@ -96,9 +101,13 @@ public class JwtTokenHandler {
 			long expMillis = nowMillis + tokenDuration;
 			Date exp = new Date(expMillis);
 			builder.setExpiration(exp);
-			// claims.put("exp", exp.getTime());
+			claims.put("exp", exp.getTime());
 		}
 
 		return builder.setClaims(claims).compact();
+	}
+
+	public void setJwtConfigurer(JwtConfigurer jwtConfigurer) {
+		this.jwtConfigurer = jwtConfigurer;
 	}
 }
