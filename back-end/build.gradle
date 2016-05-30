@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'war'
+//apply plugin: 'war'
 
 buildscript {
     repositories {
@@ -38,7 +38,7 @@ dependencies {
     compile group: 'de.svenkubiak', name: 'embedded-mongodb', version: '4.2.9'  
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
     compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.1.0.RELEASE'      
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+ //   providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testCompile("junit:junit")    
 }
 

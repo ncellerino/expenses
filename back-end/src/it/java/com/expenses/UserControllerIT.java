@@ -1,4 +1,4 @@
-package com.smartbusiness;
+package com.expenses;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -19,10 +19,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.expenses.Application;
 import com.expenses.dto.UserDTO;
+import com.expenses.util.DBUtils;
+import com.expenses.util.RestUtils;
+import com.expenses.util.TestData;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.smartbusiness.util.DBUtils;
-import com.smartbusiness.util.RestUtils;
-import com.smartbusiness.util.TestData;
 
 @ActiveProfiles({ "unit-test" })
 @RunWith(SpringJUnit4ClassRunner.class)

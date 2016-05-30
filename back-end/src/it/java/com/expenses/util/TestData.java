@@ -1,4 +1,4 @@
-package com.smartbusiness.util;
+package com.expenses.util;
 
 import com.expenses.dto.UserToSaveDTO;
 import com.expenses.model.User;

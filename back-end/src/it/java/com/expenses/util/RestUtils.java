@@ -1,4 +1,4 @@
-package com.smartbusiness.util;
+package com.expenses.util;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;

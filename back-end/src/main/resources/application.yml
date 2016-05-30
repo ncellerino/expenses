@@ -1,5 +1,6 @@
-server:
-    port: 9000
+spring:
+ application:
+  name: expenses
 jwt:
  sharedSecretKey: $Sh4r3dUk49kzmpo98i7h4xv21md
  subject: expenses
@@ -18,10 +19,18 @@ spring:
    database: test
 
 ---
-
+server:
+  port: 8090
 spring:
- profiles: production
- server:
-  port: 8080
+ profiles: prod
  data:
-  mongodb.uri: mongodb://expenses_admin:admin@localhost:27017/expenses
+  mongodb:
+   host: localhost
+   port: 29019
+   database: test
+ logging:
+  file: expenses.log
+  level:
+   root=WARN
+   org.springframework.web
+   

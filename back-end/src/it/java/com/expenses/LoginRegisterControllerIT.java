@@ -1,4 +1,4 @@
-package com.smartbusiness;
+package com.expenses;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -20,10 +20,10 @@ import org.springframework.web.client.RestTemplate;
 import com.expenses.Application;
 import com.expenses.dto.LoggedUserDTO;
 import com.expenses.dto.UserToSaveDTO;
+import com.expenses.util.DBUtils;
+import com.expenses.util.RestUtils;
+import com.expenses.util.TestData;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.smartbusiness.util.DBUtils;
-import com.smartbusiness.util.RestUtils;
-import com.smartbusiness.util.TestData;
 
 @ActiveProfiles({ "unit-test" })
 @RunWith(SpringJUnit4ClassRunner.class)
