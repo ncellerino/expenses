@@ -1,5 +1,6 @@
 package com.expenses.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -64,7 +65,11 @@ public class User extends BaseUser {
 			this.lastName = lastName;
 			this.mail = mail;
 			this.username = username;
-			this.role = role;
+			if(StringUtils.isBlank(role)){
+				this.role = UserRoles.DEFAULT.getName();
+			}else{
+				this.role = role;	
+			}			
 			this.passwordHash = passwordHash;
 			this.passwordSalt = passwordSalt;
 		}

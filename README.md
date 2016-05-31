@@ -4,6 +4,8 @@
 
 ## Back-end service
 
+Is as service developed with Spring Boot and MongoDB. It is secured using using JWT authentication and salted password hashing.
+
 To run the service:
 
 1. cd back-end
