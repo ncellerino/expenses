@@ -4,7 +4,7 @@
 
 ## Back-end service
 
-It is as service implemented in Java with Spring Boot and MongoDB. It is secured using using JWT authentication and salted password hashing.
+Service implemented in Java with Spring Boot and MongoDB. It is secured using using JWT authentication and salted password hashing.
 
 To run the service:
 
