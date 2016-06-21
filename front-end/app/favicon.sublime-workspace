@@ -1,0 +1,529 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lo",
+				"logout"
+			],
+			[
+				"id",
+				"iddleTime"
+			],
+			[
+				"U",
+				"USER_ID"
+			],
+			[
+				"$inter",
+				"$interval	AngularJS"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"ng-cl",
+				"ng-click	AngularJS"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"tool",
+				"toolkit-timeline"
+			],
+			[
+				"ma",
+				"margin-top"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"pars",
+				"parsedDate"
+			],
+			[
+				"mo",
+				"monthIndex"
+			],
+			[
+				"b",
+				"buildDate"
+			],
+			[
+				"getd",
+				"getDateForUrl"
+			],
+			[
+				"p",
+				"profit"
+			],
+			[
+				"gets",
+				"getSelectedDate"
+			],
+			[
+				"mon",
+				"monthIndex"
+			],
+			[
+				"str",
+				"stringDate"
+			],
+			[
+				"use",
+				"userId"
+			],
+			[
+				"get",
+				"getLoggedUser"
+			],
+			[
+				"me",
+				"method"
+			],
+			[
+				"user",
+				"userDetails"
+			],
+			[
+				"sav",
+				"saveDataMesagge"
+			],
+			[
+				"sho",
+				"showModalMessage"
+			],
+			[
+				"error",
+				"errorTxt"
+			],
+			[
+				"date",
+				"dateObject"
+			],
+			[
+				"UI",
+				"UI_Utils"
+			],
+			[
+				"di",
+				"disableButtons"
+			],
+			[
+				"basi",
+				"basicGoal"
+			],
+			[
+				"fi",
+				"fixedCosts"
+			],
+			[
+				"varia",
+				"variableCosts"
+			],
+			[
+				"pro",
+				"protractor"
+			],
+			[
+				"col",
+				"color"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"cle",
+				"clearAllEntries"
+			],
+			[
+				"sp",
+				"spendingGoal"
+			],
+			[
+				"va",
+				"variable"
+			],
+			[
+				"getL",
+				"getLambdaObj"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 96.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 530.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/app.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/js/lib/global.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/controllers/loginController.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/login.view.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/directives/headerDirective.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/header.view.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/services/sessionService.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/js/basicProjection.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/controllers/basicProjectionController.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/index.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/util/constants.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/styles/smartmoney.webflow.css",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/util/iddleUserDetection.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/toolkit/basicProjection.htm",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/basic-goal-builder.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/directives/numberValidationMessageDirective.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/landing.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/termsofuse.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/styles/smartMoney.css",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/styles/basic-more-profit-toolkit.webflow.css",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/landing2.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/toolkit/toolkit-timeline.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/toolkit/tool1.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/toolkit/tool2.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/toolkit/tool3.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/toolkit/tool7.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/toolkit/tool8.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training1.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/js/lib/webflow.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training-timeline.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training3.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training5.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training6.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training7.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training8.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training4.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training-timeline.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/views/training/training2.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/controllers/basicgoalbuilder.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/js/lib/aws/apigClient.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/services/awsAPIGateway.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/directives/confirmOnExitDirective.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/util/UIUtils.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/controllers/goalBuilderSaveDataModal.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/test/e2e/login_test.jsssss",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/test/e2e/initial_test.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/test/unit/controllers/basicGoalController.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training-timeline.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/SmartMoney/basicProjection.htm",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/toolkit/tool8.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/toolkit/tool7.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/toolkit/tool3.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/toolkit/tool2.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/toolkit/tool1.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training/training8.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training/training7.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training/training6.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training/training5.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training/training4.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training/training3.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training/training2.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/training/training1.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/landing.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/termsofuse.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-more-profit-toolkit/toolkit-timeline.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/controllers/goalBuilderConfirmModal.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/test/karma.conf.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/test/unit/controllers/about.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/services/awsAPIService.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/app/scripts/services/authService.js",
+		"/home/ncellerino/code/Smart/Goals.html",
+		"/home/ncellerino/code/SmartMoney_PROD_Mar022016/js/basicProjection.js",
+		"/home/ncellerino/code/SmartMoney_PROD_Mar022016/js/homeNav.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/README.md",
+		"/home/ncellerino/git/Failedbooking/libs/splunkInterface.py",
+		"/home/ncellerino/git/Failedbooking/failedbooking.py",
+		"/home/ncellerino/Downloads/basic-goal-builder.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/frontend/index.html",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/service/src/com/smart/money/bo/CashGoingOutBO.java",
+		"/home/ncellerino/git/sbmh-basic-goal-builder/app/scripts/app.js",
+		"/home/ncellerino/git/sbmh-basic-goal-builder/Gruntfile.js",
+		"/home/ncellerino/code/Smart/goal-setting-v2.html",
+		"/home/ncellerino/code/SmartMoney_PROD_Mar022016/js/login.js",
+		"/home/ncellerino/code/SmartMoney_PROD_Mar022016/js/customApi.js",
+		"/home/ncellerino/code/SmartMoney/js/customApi.js",
+		"/home/ncellerino/git/smart-business-money-habits/sbmh/basic-goal-builder/service/src/com/smart/money/bo/CashGoingOutBOs.java",
+		"/home/ncellerino/code/SmartMoney/js/login.js",
+		"/home/ncellerino/code/SmartMoney_29Jan2016/js/login.js",
+		"/home/ncellerino/code/SmartMoney_PROD_Mar022016/basicProjection.htm",
+		"/home/ncellerino/code/SmartMoney/js/login-original.js",
+		"/home/ncellerino/code/SmartMoney/homeNav.htm",
+		"/home/ncellerino/code/SmartMoney/index.htm",
+		"/home/ncellerino/code/SmartMoney/login.htm"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"..",
+			"/#",
+			"#",
+			"..",
+			"#",
+			"app",
+			"BASIC_CASH_FLOW_PROJ",
+			"CASH_GOING_OUT_PROJ",
+			"SALES_PROJ",
+			"bg",
+			"login",
+			"script-comm",
+			"SmartMoney/js",
+			"Smart",
+			"saveba",
+			"savebasi",
+			"login",
+			"_Cookies",
+			"populateProjections",
+			"showWeeklyView",
+			"cash go",
+			"stopTracking",
+			"resetIdle",
+			"onIdle",
+			"stopTracking",
+			"_onStateChanged",
+			"start",
+			"};\n",
+			"setInterval",
+			"loginPath",
+			"userid",
+			"index.html",
+			"e.preventde",
+			"input-min",
+			"on",
+			"formatNumberField",
+			"input-",
+			"format",
+			"sales",
+			"input-mini",
+			"save",
+			"saveBasicProjections",
+			"displaySuccessMessage",
+			"function displaySuccessMessage",
+			"displaySuccessMessage",
+			"displays",
+			"savebasicproj",
+			"click",
+			"cashGoingOutAccDiv",
+			"Accordion",
+			"w-dropdown-list",
+			"click",
+			"accordion-toggle",
+			"datepi",
+			"DatePick",
+			"datepick",
+			"accordion-heading",
+			"btn",
+			"butto",
+			"accordion-toggl",
+			"Sales goal",
+			"h1_projections",
+			"w-col",
+			"cash going o",
+			"training-icon-move",
+			"h1_habit-header.training ",
+			"h1_habit-header",
+			"h1_habit-header.training",
+			"h1_habit",
+			"setSelectedDate",
+			"getbasi",
+			"setData",
+			"daily",
+			"form",
+			"getotalva",
+			"isn",
+			"_Cookies",
+			"userid",
+			"_Cookies",
+			"userd",
+			"js",
+			"returnof",
+			"reinvestmentIn",
+			"rei",
+			"debtService",
+			"submitte",
+			"vm.basicGoal.da",
+			"vm.form.password",
+			"required",
+			"costs.variable",
+			"checkLogin",
+			"display:block",
+			"block",
+			"ng-c",
+			"ng-cl",
+			"w-nav.main-nav",
+			"java",
+			"title",
+			"header",
+			"pt",
+			"date",
+			"cancel(",
+			"cancel",
+			"karma",
+			"submit",
+			"goal",
+			"goals",
+			"cook",
+			"cookies"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "favicon.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 265.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

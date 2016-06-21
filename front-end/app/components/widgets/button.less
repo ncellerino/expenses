@@ -1,0 +1,42 @@
+.coloured-btn(@color) {	
+	color: @color;
+	font-size: 14px;
+	padding: 7px;
+	.box-shadow(@color);
+	background: none;	
+	&:hover {
+		color: lighten(@color, 20%);
+		.box-shadow(lighten(@color, 20%));
+	}
+	&:active {
+			color: lighten(@color, 20%);
+			background: lighten(@color, 5%);
+	    	border-color: @color;
+		}
+	&:focus, &:active:focus {
+		color: lighten(@color, 20%);
+		outline: none;
+	}
+
+	.box-shadow(@color){
+		box-shadow: 0 0 0 2px @color inset;
+	}
+	
+}
+
+.cancel-button {
+	.coloured-btn(#A51F15);
+}
+
+.save-button {
+	.coloured-btn(#0A5D0D);
+}
+
+.default-button {
+	.coloured-btn(@main-color);
+}
+
+.inverted-button {
+	.coloured-btn(#DAD2D2);
+}
+

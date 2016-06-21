@@ -1,0 +1,33 @@
+<div class="account-page">
+	<div class="row">
+		<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+        	<img src="images/household_expenses_T.png" class="user-avatar" />
+			<h1>Expense Manager <small>App</small></h1>			
+			<form name="form" ng-submit="login(form)" novalidate>			
+			  <fieldset>
+				<div class="form-content">
+				<uib-alert ng-show="errors.show" type="danger" close="closeAlert()"><span ng-bind="errors.other"></span></uib-alert>
+					<div class="form-group" ng-class="{ 'input-error' : form.email.$error.required && form.$submitted }">
+						<input type="email" class="form-control input-underline input-lg" placeholder="Email" ng-model="user.email" name="email" required>
+						<div class="error-msg" ng-show="form.email.$error.required && form.$submitted">Email required.</div>
+						<div class="error-msg" ng-show="!form.email.$error.required && form.email.$invalid && form.$submitted">Please enter a valid Email.</div>
+					</div>			
+					
+					<div class="form-group" ng-class="{ 'input-error' : form.password.$error.required && form.$submitted }">
+						<input id="pw1" type="password" class="form-control input-underline input-lg" placeholder="Password" ng-model="user.password" name="password" required>
+						<div class="error-msg" ng-show="form.password.$error.required && form.$submitted">Please enter your password.</div>						
+					</div>			
+				</div>
+				
+				<button type="submit" class="btn btn-white btn-outline btn-lg btn-rounded">Log in</button>
+				<a href="/signup"class="account-link">or <b>Sign up<b></a>
+				<div class="forgot-div account-link">	
+					<a href="/"class="account-link">Forgot your password?</a>
+				</div>
+				</fieldset>
+			</form>
+
+		</div>	
+	</div>
+
+</div>

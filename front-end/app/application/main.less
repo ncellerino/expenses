@@ -1,0 +1,68 @@
+// wiredep-removed:bower:less
+// wiredep-removed:endbower
+
+@import '../../bower_components/bootstrap/less/bootstrap.less';
+
+// Base
+@import "base/base.less";
+
+// Pages
+@import "overview/overview.less";
+@import "account/account.less";
+@import "categories/categories.less";
+
+//@import "pages/categories.less";
+//@import "pages/modal.less";
+
+// Widgets and Effects
+@import "../components/directives/menu/menu.less";
+@import "../components/directives/header/header.less";
+@import "../components/widgets/modal.less";
+@import "../components/widgets/button.less";
+@import "../components/widgets/input.less";
+@import "../../bower_components/bootstrap-btn-outline-rounded/index.less";
+@import "../styles/transitions/all.less";
+
+// Other
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+html,body {
+	overflow: hidden;
+}
+
+//colors
+@main-color: #374750; //dark grey
+@main-text-color: #FFF9F9;
+
+@main-darken: darken(@main-color, 10%);
+@main-lighten: lighten(@main-color, 65%);
+
+@main-link-color: lighten(@main-color, 50%); //light grey
+@main-link-hover-color: #EAEAEA;
+
+@error-color: #C32825;
+@error-focus-color:lighten(@error-color, 10%);
+
+
+#bundle {
+	//URLs
+	@images: "../images";
+
+	//animations
+	.keyframes(@name; @arguments) {
+			@-moz-keyframes @name { @arguments(); }
+			@-webkit-keyframes @name { @arguments(); }
+			@keyframes @name { @arguments(); }
+	}
+
+	.animation(@arguments) {
+			-webkit-animation: @arguments;
+			-moz-animation: @arguments;
+			animation: @arguments;
+	}	
+}

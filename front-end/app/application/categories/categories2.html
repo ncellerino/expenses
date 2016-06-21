@@ -1,0 +1,18 @@
+<div class="category-page">
+	<a ui-sref="categories" class="pull-right btn btn-primary btn-outline btn-rounded">Back to Overview</a>
+	<h2>Categories</h2>
+	<span class="glyphicon glyphicon-th-list bg-fade"></span>
+	<div class="">
+		<div class="">
+			<div>
+				<div ng-repeat="category in vm.categories | orderBy : 'name'">
+					<div class="hvr-fade category">
+	        			<span class="category-icon"></span><a class="category-name">{{category.name}}</a>
+	        		</div>	 
+				</div>
+			<p>
+				<a class="btn btn-primary btn-lg btn-outline btn-rounded" ng-click="vm.openModal('sm')">Add Category</a>
+			</p>
+		</div>
+	</div>
+</div>

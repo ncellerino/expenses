@@ -1,0 +1,19 @@
+<div class="category-page">	
+	<h1>Categories</h1>
+	<span class="glyphicon glyphicon-th-list icon-fade"></span>
+	<div class="categories-container full-height">
+		<div class="list-buttons full-height">			
+			<a class="pull-right btn btn-lg btn-rounded default-button btn-cancel" ng-click="openModal('sm')">Add Category</a>			
+		</div>
+		<div class="categories-list">
+			<h1>No categories found</h1>		
+		</div>
+		<div class="">		
+			<div ng-repeat="category in vm.categories | orderBy : 'name'">
+				<div class="hvr-fade category">
+	    			<span class="category-icon"></span><a class="category-name">{{category.name}}</a>
+	    		</div>	 
+			</div>			
+		</div>
+	</div>
+</div>

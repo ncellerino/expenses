@@ -1,0 +1,85 @@
+.account-page {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+
+    background: @main-color;
+
+	text-align: center;
+	color: @main-text-color;
+
+	padding: 3em;
+
+	a, .account-link {
+	 	margin-left: 10px;
+		color: @main-link-color;
+		&:hover {
+			color: @main-link-hover-color;
+  			text-decoration: none;
+		}
+	}
+
+	.input-error {
+		box-shadow: none;
+		.form-control {
+			border-color: @error-color;	
+			&:focus {
+    			border-color: @error-focus-color;
+  			}			
+		}
+	}
+	
+	.forgot-div {
+		padding: 30px 0;
+	}
+
+	h1 {
+		font-weight: 300;
+		small {
+			color: @main-link-color;
+		}
+	}
+
+	.form-group {
+		padding: 8px 0;
+	}
+
+	.form-content {
+		padding: 40px 0;
+	}
+
+	@logo-size: 125px;
+	@logo-initial-size:@logo-size - 100px;
+
+	.user-avatar {
+		width: @logo-size;
+		height: @logo-size;
+		.animate-logo;
+	}
+
+	.animate-logo {	 
+		#bundle > .keyframes(logo-expand; {
+			.logo-transform();
+		});
+		#bundle > .animation(logo-expand 1s ease 1 alternate);
+	}	
+
+	.logo-transform {
+		from {
+				width: @logo-initial-size;
+  	 		  	height: @logo-initial-size;
+  	 		  	opacity: 0.4;
+  	 		  	filter: alpha(opacity=40);  	 		  
+  	 		 }
+  		to {	
+  				width: @logo-size;
+  				height: @logo-size;
+  				opacity: 1;
+  				filter: alpha(opacity=100);
+  			}
+	}
+}

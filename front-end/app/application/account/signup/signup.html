@@ -1,0 +1,48 @@
+<div class="account-page">
+	<div class="row">
+		<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+		<img src="images/household_expenses_T.png" class="user-avatar" />
+		<h1>Expense Manager <small>App</small></h1>
+		<form name="form" ng-submit="register(form)" novalidate>
+		<fieldset>
+				<div class="form-content">
+					<uib-alert ng-show="errors.show" type="danger" close="closeAlert()"><span ng-bind="errors.other"></span></uib-alert>
+					<div class="form-group" ng-class="{ 'input-error' : form.firstName.$error.required && form.$submitted }">
+						<input type="text" class="form-control input-underline input-lg" placeholder="First Name" ng-model="user.firstName" name="firstName" required>
+						<div class="error-msg" ng-show="form.firstName.$error.required && form.$submitted">First name required.</div>
+					</div>					
+
+					<div class="form-group" ng-class="{ 'input-error' : form.lastName.$error.required && form.$submitted }">
+						<input type="text" class="form-control input-underline input-lg" placeholder="Last Name" ng-model="user.lastName" name="lastName" required>
+						<div class="error-msg" ng-show="form.lastName.$error.required && form.$submitted">Last name required.</div>
+					</div>					
+
+					<div class="form-group" ng-class="{ 'input-error' : form.email.$error.required && form.$submitted }">
+						<input type="email" class="form-control input-underline input-lg" placeholder="Email" ng-model="user.email" name="email" required>
+						<div class="error-msg" ng-show="form.email.$error.required && form.$submitted">Email required.</div>
+						<div class="error-msg" ng-show="!form.email.$error.required && form.email.$invalid && form.$submitted">Please enter a valid Email.</div>
+					</div>
+					
+					<div class="form-group" ng-class="{ 'input-error' : form.password.$error.required && form.$submitted }">
+						<input id="pw1" type="password" class="form-control input-underline input-lg" placeholder="Password" ng-minlength="3" ng-model="user.password" name="password" required>
+						<div class="error-msg" ng-show="form.password.$error.required && form.$submitted">Please enter your password.</div>
+						<div class="error-msg"
+           				ng-show="form.password.$error.minlength && submitted">
+            			Password must be at least 3 characters.
+          				</div>
+					</div>		
+					
+					<div class="form-group" ng-class="{ 'input-error' : (form.secondPassword.$error.required || form.secondPassword.$error.passwordVerify)&& form.$submitted }">
+						<input id="pw2" type="password" class="form-control input-underline input-lg" placeholder="Repeat Password" ng-model="user.secondPassword" name="secondPassword" required password-verify="user.password">
+						<div class="error-msg" ng-show="form.secondPassword.$error.required && form.$submitted">Please repeat your password.</div>		
+						<div class="error-msg" ng-show="form.secondPassword.$error.passwordVerify">Passwords don't match.</div>					
+					</div>
+				</div>
+				
+				<button type="submit" class="btn btn-white btn-outline btn-lg btn-rounded">Sign me up!</button>		
+				<a href="/login"class="account-link">or <b>Sign in<b></a>
+				</fieldset>
+		</form>
+		</div>
+	</div>
+</div>
