@@ -1,36 +1,12 @@
 spring:
- application:
-  name: expenses
+    profiles:
+        active: prod
+    application:
+        name: expenses
 jwt:
- sharedSecretKey: $Sh4r3dUk49kzmpo98i7h4xv21md
- subject: expenses
- issuer: https://expenses.com
- tokenDuration: 600000
----
+    sharedSecretKey: $Sh4r3dUk49kzmpo98i7h4xv21md
+    subject: expenses
+    issuer: https://expenses.com
+    tokenDuration: 600000
 
-spring:
- profiles: unit-test
- server:
-  port: 9000
- data:
-  mongodb:
-   host: localhost
-   port: 29019
-   database: test
-
----
-server:
-  port: 8090
-spring:
- profiles: prod
- data:
-  mongodb:
-   host: localhost
-   port: 29019
-   database: test
- logging:
-  file: expenses.log
-  level:
-   root=WARN
-   org.springframework.web
    
