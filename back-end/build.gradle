@@ -2,7 +2,9 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-//apply plugin: 'war'
+apply plugin: 'docker'
+
+group = 'expenses'
 
 buildscript {
     repositories {
@@ -10,12 +12,25 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 jar {
-    baseName = 'expenses'
+    baseName = 'back-end'
     version =  '0.1.0'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = false
+    applicationName = jar.baseName
+    dockerfile = file('docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
 }
 
 repositories {
