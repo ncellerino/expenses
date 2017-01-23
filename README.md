@@ -36,6 +36,10 @@ To run the service:
 
 3. java -jar build/libs/expenses-0.1.0.jar --spring.profiles.active=prod
 
+Features:
+
+1. Docker image created
+
 
 Next features to be added:
 
