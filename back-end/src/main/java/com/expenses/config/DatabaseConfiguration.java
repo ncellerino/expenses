@@ -1,4 +1,4 @@
-package com.expenses;
+package com.expenses.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

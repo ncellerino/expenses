@@ -1,4 +1,4 @@
-package com.expenses;
+package com.expenses.web.rest;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -25,7 +25,7 @@ import com.expenses.util.RestUtils;
 import com.expenses.util.TestData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-@ActiveProfiles({ "unit-test" })
+@ActiveProfiles({ "test" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
 @WebIntegrationTest({ "server.port=9000", "management.port=9001" })

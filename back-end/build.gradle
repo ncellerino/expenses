@@ -46,14 +46,14 @@ dependencies {
     compile("org.springframework.boot:spring-boot-configuration-processor")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-test")
-    compile("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
+    compile("org.springframework.security:spring-security-web:4.1.0.RELEASE")
     compile group: 'joda-time', name: 'joda-time', version: '2.9.3'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.35'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-    compile group: 'de.svenkubiak', name: 'embedded-mongodb', version: '4.2.9'  
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
-    compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.1.0.RELEASE'      
  //   providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    //testCompile("de.svenkubiak:embedded-mongodb:4.2.9")
+    testCompile("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
     testCompile("junit:junit")    
 }
 
