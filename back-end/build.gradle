@@ -52,7 +52,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
  //   providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    //testCompile("de.svenkubiak:embedded-mongodb:4.2.9")
+    testCompile("de.svenkubiak:embedded-mongodb:4.2.9")
     testCompile("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
     testCompile("junit:junit")    
 }
