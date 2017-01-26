@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+if [[ -z "$EXPENSES_MACHINE_HOST" ]]; then
+    echo "EXPENSES_MACHINE_HOST not found, exiting..."
+    exit
+fi
+
+CMDNAME=${CMDNAME:-$(basename $0)}
+
+usage()
+{
+    cat << USAGE >&2
+Usage:
+    $CMDNAME [options]
+    --debug                     Use debug configuration, exposing remote debugging ports
+    --piedpiper                 Start with piedpiper profile (show piedpiper-annotated UI)
+    --sftp                      Start up an sftp container
+    --qa                        Use QA configuration (will load QA data)
+    --dev                       Use dev configuration (will start apps with dev profile)
+    --full                      Start the optional group (jhipster elasticsearch, logstash and console)
+    -f DOCKER_COMPOSE_FILE      Pass additional files to docker compose, can be specified multiple
+                                times. The files must be relative to docker/ directory. The pattern
+                                "docker-compose.*-overrides.yml" can be used for naming such files as
+                                it is in .gitignore by default
+    --help                      Display this help
+USAGE
+    exit 1
+}
+
+
+WAIT=$DIR/wait-for-it.sh
+
+COMPOSE_FILES="-f $DIR/docker-compose.yml"
+COMPOSE_CMD="up -d"
+START_OPTIONAL_GROUP=0
+
+# define service groups
+STARTUP_GROUP_1="mongodb \
+user-service"
+
+
+setDeployEnv() {
+    DEPLOY_ENV="$1"
+    echo "Using expenses-$DEPLOY_ENV configuration ..."
+    COMPOSE_FILES="$COMPOSE_FILES -f $DIR/docker-compose.expenses-$DEPLOY_ENV.yml"
+}
+
+# process arguments
+while [[ $# -gt 0 ]]
+do
+    case "$1" in
+
+        # == The EXPENSES-<Env> Environments are how we change configuration based on our public facing environments ==
+        --expenses-dev) setDeployEnv 'dev'; shift;;
+        --expenses-prod)  setDeployEnv 'prod'; shift;;
+
+        # == The below configurations are for more localized development configurations ==
+        --dev)
+        echo "Using dev configuration (will start apps with dev profile)..."
+        COMPOSE_FILES="$COMPOSE_FILES -f $DIR/docker-compose.dev.yml"
+        shift
+        ;;
+
+        --debug)
+        echo "Using debug configuration, remote debugging ports..."
+        COMPOSE_FILES="$COMPOSE_FILES -f $DIR/docker-compose.debug.yml"
+        cat $DIR/docker-compose.debug.yml | grep -v "environment" | grep -v "JAVA_OPTIONS"
+        shift
+        ;;
+        --help)
+        usage
+        ;;
+        *)
+        echo "Unknown argument: $1" 1>&2
+        usage
+        ;;
+    esac
+done
+
+# startup group 1...
+docker-compose $COMPOSE_FILES $COMPOSE_CMD $STARTUP_GROUP_1
+
+echo 'Waiting for data migration and loading to complete...'
+for exitCode in `docker wait $DATA_LOADERS_GROUP`; do
+    if [[ $exitCode != 0 ]]; then
+        echo 'Data migration and/or loading failed, exiting'
+        exit 1
+    fi
+done
+echo 'Data migration and loading completed.'
+
+# startup after registry is available
+$WAIT -t 60 --http=/ $EXPENSES_MACHINE_HOST:8761 -- docker-compose $COMPOSE_FILES $COMPOSE_CMD $STARTUP_GROUP_2
+
+# startup after KAFKA is available
+$WAIT -t 60 $EXPENSES_MACHINE_HOST:9092 -- docker-compose $COMPOSE_FILES $COMPOSE_CMD $STARTUP_GROUP_3
+
+if [[ $COMPOSE_FILES == *"search.yml"* ]]
+then
+    echo "** starting up search **"
+    docker-compose $COMPOSE_FILES $COMPOSE_CMD searchservice-app
+fi
+
+# STARTUP GROUP optional if --full was passed on command line
+if [[ $START_OPTIONAL_GROUP == 1 ]]; then
+    echo "** starting optional group..."
+    $WAIT -t 300 --http=/ $EXPENSES_MACHINE_HOST:8080 -- docker-compose $COMPOSE_FILES $COMPOSE_CMD $STARTUP_GROUP_OPTIONAL
+fi

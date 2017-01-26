@@ -5,6 +5,15 @@ public class UserToAuthenticateDTO {
 	private String username;
 	private String password;
 
+	public UserToAuthenticateDTO() {
+		//empty constructor
+	}
+
+	public UserToAuthenticateDTO(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
 	public String getUsername() {
 		return username;
 	}

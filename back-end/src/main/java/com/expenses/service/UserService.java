@@ -6,6 +6,8 @@ import com.expenses.dto.LoggedUserDTO;
 import com.expenses.dto.UserDTO;
 import com.expenses.dto.UserToSaveDTO;
 
+import java.util.Optional;
+
 public interface UserService extends UserDetailsService{
 
 	/**
@@ -14,7 +16,7 @@ public interface UserService extends UserDetailsService{
 	 * @param username
 	 * @return the user dto.
 	 */
-	public UserDTO getUser(String username);
+	public Optional<UserDTO> getUser(String username);
 
 	/**
 	 * Get an existent user by its username and password.
@@ -24,7 +26,7 @@ public interface UserService extends UserDetailsService{
 	 * 
 	 * @return the user dto.
 	 */
-	public LoggedUserDTO getUserByUsernameAndPassword(String username, String password);
+	public Optional<LoggedUserDTO> getUserByUsernameAndPassword(String username, String password);
 
 	/**
 	 * Get a existent user by mail.
@@ -32,7 +34,7 @@ public interface UserService extends UserDetailsService{
 	 * @param mail
 	 * @return the user dto.
 	 */
-	public UserDTO getUserByMail(String mail);
+	public Optional<UserDTO> getUserByMail(String mail);
 
 	/**
 	 * Save a new user in the system.
@@ -46,9 +48,8 @@ public interface UserService extends UserDetailsService{
 	 * Update an existent user in the system.
 	 * 
 	 * @param userDTO
-	 * @return the user dto updated.
 	 */
-	public UserDTO updateUser(UserDTO userDTO);
+	public void updateUser(UserDTO userDTO);
 
 	/**
 	 * Delete a existent user in the system.

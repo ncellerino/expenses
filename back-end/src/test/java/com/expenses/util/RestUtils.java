@@ -1,5 +1,6 @@
 package com.expenses.util;
 
+import com.expenses.dto.UserToAuthenticateDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
@@ -11,18 +12,18 @@ public class RestUtils {
 
 	private static RestTemplate template = new RestTemplate();
 
-	public static ResponseEntity<LoggedUserDTO> callLoginEndpoint(String host, String username, String password) {
-		return executePost(host + "/login?username=" + username + "&password=" + password, null);
+	public static ResponseEntity<LoggedUserDTO> callLoginEndpoint(String host, UserToAuthenticateDTO userToAuthenticateDTO) {
+		return executePost(host + "/login", userToAuthenticateDTO, LoggedUserDTO.class);
 	}
 
 	public static ResponseEntity<LoggedUserDTO> callRegisterEndpoint(String host, UserToSaveDTO userDTO) {
-		return executePost(host + "/register", userDTO);
+		return executePost(host + "/register", userDTO, LoggedUserDTO.class);
 	}
 
-	public static ResponseEntity<LoggedUserDTO> executePost(String url, UserToSaveDTO userDTO) {
+	public static ResponseEntity<LoggedUserDTO> executePost(String url, Object userDTO, Class bodyObjectClass) {
 		ResponseEntity<LoggedUserDTO> response = null;
 		try {
-			response = template.postForEntity(url, userDTO, LoggedUserDTO.class);
+			response = template.postForEntity(url, userDTO, bodyObjectClass);
 		} catch (HttpStatusCodeException e) {			
 			response = new ResponseEntity<>(e.getStatusCode());
 		}

@@ -1,0 +1,9 @@
+version: '2'
+services:
+    user-service:
+        image: expenses/back-end
+    mongodb:
+        image: mongo:3.0.4
+        ports:
+            - "27017:27017"
+        command: mongod --smallfiles

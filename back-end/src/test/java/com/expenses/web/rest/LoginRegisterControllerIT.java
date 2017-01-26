@@ -3,6 +3,7 @@ package com.expenses.web.rest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+import com.expenses.dto.UserToAuthenticateDTO;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,7 +51,7 @@ public class LoginRegisterControllerIT {
 	public void login() throws JsonProcessingException, NoSuchAlgorithmException, InvalidKeySpecException {
 		String username = "superman";
 		String password = "pass";
-		ResponseEntity<LoggedUserDTO> response = RestUtils.callLoginEndpoint(URL, username, password);
+		ResponseEntity<LoggedUserDTO> response = RestUtils.callLoginEndpoint(URL, new UserToAuthenticateDTO(username, password));
 		Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
 		LoggedUserDTO loggedUserDTO = response.getBody();
 		Assert.assertNotNull(loggedUserDTO);
@@ -62,7 +63,8 @@ public class LoginRegisterControllerIT {
 	public void loginWrongPassword() throws JsonProcessingException, NoSuchAlgorithmException, InvalidKeySpecException {
 		String username = "superman";
 		String password = "wrongPass";
-		ResponseEntity<LoggedUserDTO> response = RestUtils.callLoginEndpoint(URL, username, password);
+		UserToAuthenticateDTO userToAuthenticateDTO = new UserToAuthenticateDTO(username, password);
+		ResponseEntity<LoggedUserDTO> response = RestUtils.callLoginEndpoint(URL, userToAuthenticateDTO);
 		Assert.assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 	}
 
@@ -71,7 +73,7 @@ public class LoginRegisterControllerIT {
 			throws JsonProcessingException, NoSuchAlgorithmException, InvalidKeySpecException {
 		String username = "fakeUser";
 		String password = "pass";
-		ResponseEntity<LoggedUserDTO> response = RestUtils.callLoginEndpoint(URL, username, password);
+		ResponseEntity<LoggedUserDTO> response = RestUtils.callLoginEndpoint(URL, new UserToAuthenticateDTO(username, password));
 		Assert.assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
 	}
 
