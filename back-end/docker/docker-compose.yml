@@ -1,9 +1,15 @@
 version: '2'
 services:
     user-service:
+        container_name: expenses-service
         image: expenses/back-end
+        links:
+            - mongodb
+        ports:
+            - 8090:8090
     mongodb:
         image: mongo:3.0.4
+        container_name: mongodb
         ports:
             - "27017:27017"
         command: mongod --smallfiles

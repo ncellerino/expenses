@@ -20,7 +20,6 @@ Usage:
     --sftp                      Start up an sftp container
     --qa                        Use QA configuration (will load QA data)
     --dev                       Use dev configuration (will start apps with dev profile)
-    --full                      Start the optional group (jhipster elasticsearch, logstash and console)
     -f DOCKER_COMPOSE_FILE      Pass additional files to docker compose, can be specified multiple
                                 times. The files must be relative to docker/ directory. The pattern
                                 "docker-compose.*-overrides.yml" can be used for naming such files as

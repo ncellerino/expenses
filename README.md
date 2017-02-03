@@ -36,6 +36,44 @@ To run the service:
 
 3. java -jar build/libs/expenses-0.1.0.jar --spring.profiles.active=prod
 
+### Runing with docker
+
+
+This project uses [Docker Compose](https://docs.docker.com/compose/) to run the service
+
+```
+cd bin
+```
+
+1. To create the docker machine:
+
+```
+./create-docker-machine.sh
+```
+
+2. To build the docker containers:
+
+```
+./build-docker-containers.sh
+```
+3. To run the containers
+
+```
+./docker-dev.sh
+```
+
+To stop the containers:
+
+```
+./docker-stop-containers.sh
+```
+
+To remove the containers:
+```
+./docker-clean.sh
+```
+
+
 Features:
 
 1. Docker image created
@@ -43,6 +81,9 @@ Features:
 
 Next features to be added:
 
-1. Etag filter
-2. Guava cache 
+1. Liquibase
+2. Etag filter
+3. Guava cache 
+
+
 

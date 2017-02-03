@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserDTO userDTO) {
-        repository.findByUsername(userDTO.getUsername()).ifPresent(user -> saveUser(user, userDTO));
+        repository.findByUsername(userDTO.getUsername()).map(user -> saveUser(user, userDTO));
     }
 
     private UserDTO saveUser(User user, UserDTO userDTO) {
